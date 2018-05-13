@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Eksisarkilar</title>
+	<meta name="description" content="Ah bu şarkıların gözü kör olsun!...">
+
+	<link href='//fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+	<style>
+		body {
+			margin: 50px 0 0 0;
+			padding: 0;
+			width: 100%;
+			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+			text-align: center;
+			color: #aaa;
+			font-size: 18px;
+		}
+
+		h1 {
+			color: #719e40;
+			letter-spacing: -3px;
+			font-family: 'Lato', sans-serif;
+			font-size: 100px;
+			font-weight: 200;
+			margin-bottom: 0;
+		}
+	</style>
+</head>
+<body>
+<h1>Eksisarkilar</h1>
+<div class="container">
+	<?php if ( $rows ): ?>
+		<table class="table table-dark table-striped">
+			<thead>
+			<tr>
+				<th>Sarki Adi</th>
+				<th>Entry ID</th>
+				<th>Spotify ID</th>
+			</tr>
+			</thead>
+			<tbody>
+			<?php foreach ( $rows as $row ): ?>
+				<tr>
+					<td><?php echo $row['track']; ?></td>
+					<td><?php echo $row['entry_id']; ?></td>
+					<td><?php echo $row['spotify_id']; ?></td>
+				</tr>
+			<?php endforeach; ?>
+			</tbody>
+		</table>
+		<div class="alert alert-warning"><?php echo sprintf( "Taranacak sayfa: %s / %s saniye icinde baslayacak", $next_page, $sleep ); ?></div>
+	<?php else: ?>
+		<div class="alert alert-info">Bu sayfada sarki bulunamadi</div>
+	<?php endif; ?>
+
+	<script>
+        window.setTimeout(function () {
+            window.location.href = "/crawl?page=<?php echo $next_page;?>";
+        }, <?php echo intval( $sleep ) * 1000;?>);
+	</script>
+
+</div>
+</body>
+</html>
